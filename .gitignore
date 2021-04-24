@@ -4,6 +4,9 @@
 # Log file
 *.log
 
+# Workspace files
+*.code-workspace
+
 # BlueJ files
 *.ctxt
 

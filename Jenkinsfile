@@ -11,8 +11,8 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
-                sh 'User name $VBOX_CREDS_USR'
-                sh 'Password $VBOX_CREDS_PSW'
+                echo "User name $VBOX_CREDS_USR"
+                echo "Password $VBOX_CREDS_PSW"
                 // def remote = [:]
                 // remote.name = 'padmahasa-VirtualBox'
                 // remote.host = '192.168.0.104'

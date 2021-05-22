@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    // environment {
-    //     VBOX_CREDS = credentials('padmahasa-vbox-creds')
-    // }
+    environment {
+        VBOX_CREDS = credentials('padmahasa-vbox-creds')
+    }
     stages {
         stage('Build') {
             steps {

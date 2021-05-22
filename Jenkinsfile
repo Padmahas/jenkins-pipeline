@@ -1,7 +1,6 @@
 pipeline {
     agent any
     environment {
-        echo 'Setting up Environment variable.'
         VBOX_CREDS = credentials('padmahasa-vbox-creds')
     }
     stages {

@@ -6,13 +6,7 @@ pipeline {
     stages {
         stage('Remote SSH') {
             steps {
-                sh 'echo "Hello World"'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
-
-                def remote = [:]
+                remote = [:]
                 remote.name = 'padmahasa-VirtualBox'
                 remote.host = '192.168.0.104'
                 remote.user = $VBOX_CREDS_USR

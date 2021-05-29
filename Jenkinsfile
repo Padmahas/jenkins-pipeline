@@ -9,7 +9,20 @@ pipeline {
                 branch 'development'
             }
             steps {
-                echo 'Deploying to ' + env.BRANCH_NAME
+                echo 'Configuring Remote SSH for "' + env.BRANCH_NAME + '" environment.'
+                script {
+                    def remote = [:]
+                    remote.name = 'padmahasa-VirtualBox'
+                    remote.host = '192.168.0.104'
+                    remote.user = VBOX_CREDS_USR
+                    remote.password = VBOX_CREDS_PSW
+                    remote.allowAnyHosts = true
+
+                    echo 'Listing the files available on the server'
+                    sshCommand remote: remote, command: 'ls -lrt'
+                    sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
+                    echo 'name value in remote map = ' + remote.name
+                }
             }
         }
         stage ('buildToPreProd branch') {

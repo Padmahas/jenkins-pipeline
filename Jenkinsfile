@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Finding branch'){
             when {
-                    anyof{
+                    anyOf{
                         branch 'development'; branch 'buildToPreProd'
                     }
             }

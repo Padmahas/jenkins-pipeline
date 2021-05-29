@@ -21,7 +21,10 @@ pipeline {
                     echo 'Listing the files available on the server'
                     sshCommand remote: remote, command: 'ls -lrt'
                     sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
-                    echo 'name value in remote map = ' + remote.name
+                    
+                    echo 'Changing directory to apache tomcat server folder.'
+                    sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps'
+                    sshCommand remote: remote, command: 'ls -lrt'
                 }
             }
         }

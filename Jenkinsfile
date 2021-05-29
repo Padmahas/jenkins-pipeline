@@ -4,14 +4,16 @@ pipeline {
         VBOX_CREDS = credentials('padmahasa-vbox-creds')
     }
     stages {
-        stage('Finding branch') {
+        stage('development branch') {
             when {
                 branch 'development'
             }
             steps {
                 echo 'Deploying to ' + env.BRANCH_NAME
             }
-            when{
+        }
+        stage ('buildToPreProd branch') {
+            when {
                 branch 'buildToPreProd'
             }
             steps {

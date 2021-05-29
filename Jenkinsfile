@@ -24,7 +24,10 @@ pipeline {
                     
                     echo 'Changing directory to apache tomcat server folder.'
                     // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps && /opt/apache-tomcat-9.0.45/bin/startup.sh'
-                    sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps && /opt/apache-tomcat-9.0.45/bin/shutdown.sh'
+                    // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps && /opt/apache-tomcat-9.0.45/bin/shutdown.sh'
+
+                    echo 'Transferring file from Jenkins server to Remote server.'
+                    sshPut remote: remote, from: 'jenkins_pipeline_workspace.code-workspace', into: '/opt/filetransfer/'
                 }
             }
         }

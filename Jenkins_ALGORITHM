@@ -1,0 +1,4 @@
+Jenkins ALGORITHM
+Once committed, build the project before checking for branches.
+Check which branch, based on the branch, configure "Remote SSH" and deploy to that branch.
+Use "when" directive. And define all the steps to be executed inside each "when" directive.

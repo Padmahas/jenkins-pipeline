@@ -4,7 +4,7 @@ pipeline {
         VBOX_CREDS = credentials('padmahasa-vbox-creds')
     }
     stages {
-        stage ('List folder conents'){
+        stage ('List folder conents') {
             steps {
                 sh 'ls -l'
             }
@@ -26,7 +26,7 @@ pipeline {
         //             echo 'Listing the files available on the server'
         //             sshCommand remote: remote, command: 'ls -lrt'
         //             sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
-                    
+
         //             echo 'Changing directory to apache tomcat server folder.'
         //             // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps && /opt/apache-tomcat-9.0.45/bin/startup.sh'
         //             // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps && /opt/apache-tomcat-9.0.45/bin/shutdown.sh'
@@ -58,7 +58,7 @@ pipeline {
     //         }
     //     }
     // }
-
+    }
     post {
         always {
             echo 'Build and Deployment finished execution.'
@@ -76,6 +76,5 @@ pipeline {
             echo 'This will run only if the state of the Pipeline has changed'
             echo 'For example, if the Pipeline was previously failing but is now successful'
         }
-    }
     }
 }

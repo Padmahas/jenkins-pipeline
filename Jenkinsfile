@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'maven-3.8.1' 
+    }
     environment {
         VBOX_CREDS = credentials('padmahasa-vbox-creds')
     }
@@ -7,6 +10,7 @@ pipeline {
         stage ('List folder conents') {
             steps {
                 sh 'ls -l'
+                sh 'mvn -v'
             }
         }
         stage('development branch') {

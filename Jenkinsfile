@@ -28,8 +28,8 @@ pipeline {
 
                     // echo 'Listing the files available on the server'
                     // sshCommand remote: remote, command: 'ls -lrt'
-                    sshCommand remote: remote, command: 'for i in {1..5};' +
-                    ' do echo -n \"Loop \$i \"; date ; sleep 1; done'
+                    // sshCommand remote: remote, command: 'for i in {1..5};' +
+                    // ' do echo -n \"Loop \$i \"; date ; sleep 1; done'
 
                     echo 'Capturing new file name to be used for back up'
                     sshCommand remote: remote, sudo: true, command: 'touch /etc/profile.d/devOpsEnvVars.sh ' +

@@ -80,10 +80,10 @@ pipeline {
             echo 'Build and Deployment finished execution.'
         }
         success {
-            echo 'Build had Deployment process has been SUCCESSFUL.'
+            echo 'Build and Deployment process has been SUCCESSFUL.'
         }
         failure {
-            echo 'Build had Deployment process has been FAILED.'
+            echo 'Build and Deployment process has been FAILED.'
         }
         unstable {
             echo 'This will run only if the run was marked as unstable'

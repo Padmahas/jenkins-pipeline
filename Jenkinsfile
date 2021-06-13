@@ -9,7 +9,6 @@ pipeline {
     stages {
         stage ('List folder conents') {
             steps {
-                sh 'ls -l'
                 sh 'mvn -v'
             }
         }

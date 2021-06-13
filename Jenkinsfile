@@ -33,10 +33,10 @@ pipeline {
                     // ' do echo -n \"Loop \$i \"; date ; sleep 1; done'
 
                     echo 'Capturing new file name to be used for back up'
-                    sshCommand remote: remote, sudo: false, command: 'datetime=$(date +"%Y-%m-%d_%H_%M_%S") '
-                    // + '&& echo "datetime=$datetime" > /etc/profile.d/devOpsEnvVars.sh '
-                    // + '&& chmod 755 /etc/profile.d/devOpsEnvVars.sh '
-                    // + '&&  echo "backedUpFileName=ProjectName_$datetime.war" >> devOpsEnvVars.sh'
+                    sshCommand remote: remote, sudo: true, command: 'echo "datetime=$(date +"%Y-%m-%d_%H_%M_%S")" '
+                    + '> /etc/profile.d/devOpsEnvVars.sh '
+                    + '&& chmod 755 /etc/profile.d/devOpsEnvVars.sh '
+                    + '&&  echo "backedUpFileName=ProjectName_$datetime.war" >> devOpsEnvVars.sh'
 
                     echo 'Accessing Environment Variables.'
                     sshCommand remote:remote, command: 'echo $datetime && echo $backedUpFileName'

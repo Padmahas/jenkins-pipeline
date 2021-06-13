@@ -29,11 +29,23 @@ pipeline {
 
                     echo 'Listing the files available on the server'
                     sshCommand remote: remote, command: 'ls -lrt'
-                    sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
+                    sshCommand remote: remote, command: 'for i in {1..5};' +
+                    ' do echo -n \"Loop \$i \"; date ; sleep 1; done'
+
+                    echo 'Capturing new file name to be used for back up'
+                    sshCommand remote: remote, sudo: true, command: 'datetime=$(date +"%Y-%m-%d_%H_%M_%S") ' +
+                    '&& echo "datetime=$datetime" > /etc/profile.d/devOpsEnvVars.sh ' +
+                    '&& chmod 755 /etc/profile.d/devOpsEnvVars.sh ' +
+                    '&&  echo "backedUpFileName=ProjectName_$datetime.war" >> devOpsEnvVars.sh'
+
+                    echo 'Accessing Environment Variables.'
+                    sshCommand remote:remote, command: 'echo $datetime && echo $backedUpFileName'
 
                     echo 'Changing directory to apache tomcat server folder.'
-                    // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps && /opt/apache-tomcat-9.0.45/bin/startup.sh'
-                    // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps && /opt/apache-tomcat-9.0.45/bin/shutdown.sh'
+                    // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps ' +
+                    '&& /opt/apache-tomcat-9.0.45/bin/startup.sh'
+                    // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps ' +
+                    '&& /opt/apache-tomcat-9.0.45/bin/shutdown.sh'
 
                     echo 'Transferring file from Jenkins server to Remote server.'
                     sshPut remote: remote, from: 'Jenkins_ALGORITHM', into: '/opt/filetransfer/'

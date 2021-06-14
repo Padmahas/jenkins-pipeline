@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'maven-3.8.1' 
+        maven 'maven-3.8.1'
     }
     environment {
         VBOX_CREDS = credentials('padmahasa-vbox-creds')
@@ -32,10 +32,14 @@ pipeline {
                     // ' do echo -n \"Loop \$i \"; date ; sleep 1; done'
 
                     echo 'Capturing new file name to be used for back up'
-                    sshCommand remote: remote, sudo: true, command: 'touch /etc/profile.d/devOpsEnvVars.sh ' +
-                    '&& chmod 777 /etc/profile.d/devOpsEnvVars.sh ' +
-                    '&& echo "datetime=$(date +"%Y-%m-%d_%H_%M_%S")" > /etc/profile.d/devOpsEnvVars.sh ' +
-                    '&& echo "backedUpFileName=ProjectName_$datetime.war" >> devOpsEnvVars.sh'
+                    sshCommand remote: remote, sudo: true, command: 
+                    // 'sudo rm /etc/profile.d/devOpsEnvVars.sh ' +
+                    // '&& sudo touch /etc/profile.d/devOpsEnvVars.sh ' +
+                    // '&& sudo chmod 755 /etc/profile.d/devOpsEnvVars.sh ' +
+                    'sudo sh -c \'echo "datetime=$(date +"%Y-%m-%d_%H_%M_%S")" > /etc/profile.d/devOpsEnvVars.sh\''
+                    sshCommand remote: remote, sudo: true, command: 'sudo sh -c ' +
+                    '\'echo "backedUpFileName=ProjectName_$datetime.war" ' +
+                    '>> /etc/profile.d/devOpsEnvVars.sh\''
 
                     echo 'Accessing Environment Variables.'
                     sshCommand remote:remote, command: 'echo $datetime && echo $backedUpFileName'

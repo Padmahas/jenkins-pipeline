@@ -32,18 +32,18 @@ pipeline {
                     // sshCommand remote: remote, command: 'for i in {1..5};' +
                     // ' do echo -n \"Loop \$i \"; date ; sleep 1; done'
 
-                    // Setting ENV variables on Remote host using shell script inside profile.d
-                    echo 'Capturing new file name to be used for back up, using ENV variable'
-                    sshCommand remote: remote, sudo: true, command:
-                    // 'sudo rm /etc/profile.d/devOpsEnvVars.sh ' +
-                    'touch /etc/profile.d/devOpsEnvVars.sh ' +
-                    '&& sudo chmod 755 /etc/profile.d/devOpsEnvVars.sh ' +
-                    '&& sudo sh -c \'echo "export datetime=$(date +"%Y-%m-%d_%H_%M_%S")" ' +
-                    '> /etc/profile.d/devOpsEnvVars.sh\''
-                    echo 'pty before resetting = ' + remote.get("pty")
-                    sshCommand remote: remote, sudo: true, command: 'sudo sh -c ' +
-                    '\'echo "export backedUpFileName=ProjectName_\\$datetime.war" ' +
-                    '>> /etc/profile.d/devOpsEnvVars.sh\''
+                    // // Setting ENV variables on Remote host using shell script inside profile.d
+                    // echo 'Capturing new file name to be used for back up, using ENV variable'
+                    // sshCommand remote: remote, sudo: true, command:
+                    // // 'sudo rm /etc/profile.d/devOpsEnvVars.sh ' +
+                    // 'touch /etc/profile.d/devOpsEnvVars.sh ' +
+                    // '&& sudo chmod 755 /etc/profile.d/devOpsEnvVars.sh ' +
+                    // '&& sudo sh -c \'echo "export datetime=$(date +"%Y-%m-%d_%H_%M_%S")" ' +
+                    // '> /etc/profile.d/devOpsEnvVars.sh\''
+                    // echo 'pty before resetting = ' + remote.get("pty")
+                    // sshCommand remote: remote, sudo: true, command: 'sudo sh -c ' +
+                    // '\'echo "export backedUpFileName=ProjectName_\\$datetime.war" ' +
+                    // '>> /etc/profile.d/devOpsEnvVars.sh\''
 
                     // remote.pty = false
                     echo 'rempty = ' + remote.get('pty')

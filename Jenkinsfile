@@ -32,7 +32,9 @@ pipeline {
                     // sshCommand remote: remote, command: 'for i in {1..5};' +
                     // ' do echo -n \"Loop \$i \"; date ; sleep 1; done'
 
-                    // // Setting ENV variables on Remote host using shell script inside profile.d
+                    // #####################################################################################
+                    // Setting ENV variables on Remote host using shell script inside profile.d
+                    // #####################################################################################
                     // echo 'Capturing new file name to be used for back up, using ENV variable'
                     // sshCommand remote: remote, sudo: true, command:
                     // // 'sudo rm /etc/profile.d/devOpsEnvVars.sh ' +
@@ -45,8 +47,10 @@ pipeline {
                     // '\'echo "export backedUpFileName=ProjectName_\\$datetime.war" ' +
                     // '>> /etc/profile.d/devOpsEnvVars.sh\''
 
+                    // #####################################################################################
                     // Setting ENV variables on Remote host using shell script
                     // in HOME directory and manually invoking before each sshCommand
+                    // #####################################################################################
                     echo 'Capturing new file name to be used for back up, using ENV variable'
                     sshCommand remote: remote, sudo: true, command:
                     // 'sudo rm devOpsEnvVars.sh ' +
@@ -57,15 +61,17 @@ pipeline {
                     '&& sudo sh -c ' +
                     '\'echo "export backedUpFileName=ProjectName_\\$datetime.war" ' +
                     '>> devOpsEnvVars.sh\''
-                    
+
                     sshCommand remote: remote, sudo: true, command:
                     'sudo sh -c ' +
                     '\'echo "echo \\"Last time this script was executed on \\" + $(date) > devOpsEnvVars.log" ' +
                     '>> devOpsEnvVars.sh\''
-                    
-                    // remote.pty = false
-                    echo 'rempty = ' + remote.get('pty')
-                    echo 'Accessing Environment Variables.'
+
+                    // #####################################################################################
+                    // Verifying whether all Environment variables are available and accessible.
+                    // #####################################################################################
+                    echo 'pty = ' + remote.get('pty')
+                    echo 'Verifying whether all Environment variables are available and accessible.'
                     // sshCommand remote:remote, command: 'cat /etc/profile.d/devOpsEnvVars.sh'
                     sshCommand remote:remote, command: 'cat devOpsEnvVars.sh'
                     // sshCommand remote:remote, command: 'ls -l /etc/profile.d/devOpsEnvVars.sh'
@@ -83,6 +89,9 @@ pipeline {
                     // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps ' +
                     // '&& /opt/apache-tomcat-9.0.45/bin/shutdown.sh'
 
+                    // #####################################################################################
+                    // #################### Transferring build to Remote server ############################
+                    // #####################################################################################
                     echo 'Transferring file from Jenkins server to Remote server.'
                     sshPut remote: remote, from: 'Jenkins_ALGORITHM', into: '/opt/filetransfer/'
                 }

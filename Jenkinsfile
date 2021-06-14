@@ -97,11 +97,11 @@ pipeline {
                     echo 'Backing up the current build.'
                     sshCommand remote:remote, command: 'source ./devOpsEnvVars.sh ' +
                     '&& cp /opt/apache-tomcat-9.0.45/webapps/Jenkins_ALGORITHM' +
-                    '/opt/backup/$backedUpFileName.war'
+                    ' /opt/backup/$backedUpFileName.war'
 
                     sshCommand remote:remote, command: 'source ./devOpsEnvVars.sh ' +
                     '&& cp -R /opt/apache-tomcat-9.0.45/webapps/Jenkins_ALGORITHM' +
-                    '/opt/backup/$backedUpFileName'
+                    ' /opt/backup/$backedUpFileName'
 
                     /**
                      * #####################################################################################

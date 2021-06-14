@@ -136,7 +136,7 @@ pipeline {
                      * #####################################################################################
                      */
                     echo 'Starting Tomcat server.'
-                    echo 'Waiting for 20 seconds since Tomcat won\'t start if immediately exited out of session.'
+                    echo 'Added "nohup", since Tomcat won\'t start if immediately exited out of session.'
                     sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps ' +
                     '&& nohup /opt/apache-tomcat-9.0.45/bin/startup.sh'
 

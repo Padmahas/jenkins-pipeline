@@ -45,14 +45,37 @@ pipeline {
                     // '\'echo "export backedUpFileName=ProjectName_\\$datetime.war" ' +
                     // '>> /etc/profile.d/devOpsEnvVars.sh\''
 
+                    // Setting ENV variables on Remote host using shell script
+                    // in HOME directory and manually invoking before each sshCommand
+                    echo 'Capturing new file name to be used for back up, using ENV variable'
+                    sshCommand remote: remote, sudo: true, command:
+                    // 'sudo rm devOpsEnvVars.sh ' +
+                    'touch devOpsEnvVars.sh ' +
+                    '&& sudo chmod 755 devOpsEnvVars.sh ' +
+                    '&& sudo sh -c \'echo "export datetime=$(date +"%Y-%m-%d_%H_%M_%S")" ' +
+                    '> devOpsEnvVars.sh\'' +
+                    '&& sudo sh -c ' +
+                    '\'echo "export backedUpFileName=ProjectName_\\$datetime.war" ' +
+                    '>> devOpsEnvVars.sh\''
+                    
+                    sshCommand remote: remote, sudo: true, command:
+                    'sudo sh -c ' +
+                    '\'echo "echo \\"Last time this script was executed on \\" + $(date) > devOpsEnvVars.log" ' +
+                    '>> devOpsEnvVars.sh\''
+                    
                     // remote.pty = false
                     echo 'rempty = ' + remote.get('pty')
                     echo 'Accessing Environment Variables.'
-                    sshCommand remote:remote, command: 'cat /etc/profile.d/devOpsEnvVars.sh'
-                    sshCommand remote:remote, command: 'ls -l /etc/profile.d/devOpsEnvVars.sh'
-                    sshCommand remote:remote, command: 'echo $datetime && echo $backedUpFileName'
+                    // sshCommand remote:remote, command: 'cat /etc/profile.d/devOpsEnvVars.sh'
+                    sshCommand remote:remote, command: 'cat devOpsEnvVars.sh'
+                    // sshCommand remote:remote, command: 'ls -l /etc/profile.d/devOpsEnvVars.sh'
+                    sshCommand remote:remote, command: 'source ./devOpsEnvVars.sh ' +
+                    '&& echo $datetime && echo $backedUpFileName'
+                    sshCommand remote:remote, command: 'cat devOpsEnvVars.log'
                     sshCommand remote:remote, command: 'echo $JAVA_HOME'
-                    sshCommand remote:remote, command: 'echo $custEnvVar'
+                    sshCommand remote:remote, command: 'source ./devOpsEnvVars.sh ' +
+                    '&& echo $custEnvVar'
+                    sshCommand remote:remote, command: 'cat devOpsEnvVars.log'
 
                     echo 'Changing directory to apache tomcat server folder.'
                     // sshCommand remote: remote, command: 'cd /opt/apache-tomcat-9.0.45/webapps ' +

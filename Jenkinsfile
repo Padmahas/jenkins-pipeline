@@ -149,6 +149,8 @@ pipeline {
             }
             steps {
                 echo 'Deploying to ' + env.BRANCH_NAME
+                echo 'host = ' + remote.get('host')
+                echo 'user = ' + remote.get('user')
             }
         }
     // stage('Remote SSH') {

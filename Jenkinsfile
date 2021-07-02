@@ -30,12 +30,12 @@ pipeline {
             steps {
                 echo 'Deploying to ' + env.BRANCH_NAME
                 setRemote('padmahasa-VirtualBox', '192.168.0.108')
-                echo 'host = ' + remote.get('host')
-                echo 'user = ' + remote.get('user')
+                echo 'host = ' + REMOTE.get('host')
+                echo 'user = ' + REMOTE.get('user')
 
                 setRemote('padmahasa-VirtualBox', '192.168.0.105')
-                echo 'host = ' + remote.get('host')
-                echo 'user = ' + remote.get('user')
+                echo 'host = ' + REMOTE.get('host')
+                echo 'user = ' + REMOTE.get('user')
             }
         }
         stage ('Set up Environment Variables on Remote server') {

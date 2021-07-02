@@ -20,7 +20,7 @@ pipeline {
 
             steps {
                 echo 'Configuring Remote SSH for "' + env.BRANCH_NAME + '" environment.'
-                setRemote('padmahasa-VirtualBox', '192.168.0.104')
+                setRemote('padmahasa-VirtualBox', '192.168.0.105')
             }
         }
         stage ('buildToPreProd branch') {
@@ -33,7 +33,7 @@ pipeline {
                 echo 'host = ' + remote.get('host')
                 echo 'user = ' + remote.get('user')
 
-                setRemote('padmahasa-VirtualBox', '192.168.0.104')
+                setRemote('padmahasa-VirtualBox', '192.168.0.105')
                 echo 'host = ' + remote.get('host')
                 echo 'user = ' + remote.get('user')
             }
